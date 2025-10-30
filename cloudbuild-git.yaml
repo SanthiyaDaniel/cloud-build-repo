@@ -1,3 +1,7 @@
+options:
+    logging: GCS_ONLY
+    logsBucket: 'gs://gcp-serverless-project-476012-cloudbuild-logs'
+
 steps:
   # Step 1: Build image
   - name: 'gcr.io/cloud-builders/docker'
