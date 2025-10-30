@@ -1,23 +1,26 @@
 steps:
   # Step 1: Build image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/fastapi-app', '.']
+    args: [
+      'build', '-t', 'asia-south1-docker.pkg.dev/$PROJECT_ID/fastapi-repo/fastapi-app', '.'
+    ]
 
   # Step 2: Push image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/fastapi-app']
+    args: [
+      'push', 'asia-south1-docker.pkg.dev/$PROJECT_ID/fastapi-repo/fastapi-app'
+    ]
 
   # Step 3: Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
-    args:
-      [
-        'run', 'deploy', 'fastapi-app',
-        '--image', 'gcr.io/$PROJECT_ID/fastapi-app',
-        '--region', 'asia-south1',
-        '--platform', 'managed',
-        '--allow-unauthenticated'
-      ]
+    args: [
+      'run', 'deploy', 'fastapi-app',
+      '--image', 'asia-south1-docker.pkg.dev/$PROJECT_ID/fastapi-repo/fastapi-app',
+      '--region', 'asia-south1',
+      '--platform', 'managed',
+      '--allow-unauthenticated'
+    ]
 
 images:
-  - 'gcr.io/$PROJECT_ID/fastapi-app'
+  - 'asia-south1-docker.pkg.dev/$PROJECT_ID/fastapi-repo/fastapi-app'

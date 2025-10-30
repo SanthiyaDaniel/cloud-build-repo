@@ -7,7 +7,7 @@ app = FastAPI()
 # this is just to test the app is running
 @app.get("/")
 def home():
-    return {"message": "App is running"}
+    return {"message": "App is running, testing successful from cicd build"}
 
 # --- add this below ---
 
